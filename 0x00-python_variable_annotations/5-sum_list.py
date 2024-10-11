@@ -3,7 +3,6 @@
 5-sum_list
 This module takes a list of floats and returns their sum as a float
 """
-
 from typing import List
 
 

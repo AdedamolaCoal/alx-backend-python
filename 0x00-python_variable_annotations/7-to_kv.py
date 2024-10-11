@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """returns a tuple"""
-
 from typing import Tuple, Union
 
 
