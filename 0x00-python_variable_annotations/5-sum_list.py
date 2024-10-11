@@ -9,6 +9,7 @@ from typing import List
 
 def sum_list(input_list: List[float]) -> float:
     """_summary_
+      Takes a list of floats and returns their sum as a float
 
     Args:
       input_list (list[float]): takes an argument that is a list of floats
