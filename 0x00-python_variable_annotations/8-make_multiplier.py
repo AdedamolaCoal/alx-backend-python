@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """returns a multiplier of the input"""
+
 from typing import Callable
 
 
@@ -15,6 +16,6 @@ def make_multiplier(multiplier: float) -> Callable[[float], float]:
 
     def multiply(n: float) -> float:
         """The inner multiplier"""
-        return n * multiplier
+        return float(n * multiplier)
 
     return multiply
