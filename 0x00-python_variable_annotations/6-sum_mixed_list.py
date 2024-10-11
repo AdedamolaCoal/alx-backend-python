@@ -1,19 +1,25 @@
 #!/usr/bin/env python3
-"""
-6-sum_mixed_list
-This module takes a list of both ints and floats and returns their sum as a float
-"""
 from typing import List, Union
 
 
-def sum_mixed_list(mxd_list: List[Union[int, float]]) -> float:
-    """_summary_
+def sum_numbers_in_list(numbers: List[Union[int, float]]) -> float:
+    """
+    Returns the sum of all numbers in the input list.
 
     Args:
-      mxd_list (list[Union[int, float]]): takes an argument that is a list of
-      both ints and floats
+        numbers: A list of integers and/or floats.
 
     Returns:
-      float: returns a float with the sum of all floats and ints in the list mxd_list.
+        The sum of all numbers in the list as a float.
+
+    Raises:
+        TypeError: If the input is not a list.
+        ValueError: If the list contains non-numeric values.
     """
-    return float(sum(mxd_list))
+    if not isinstance(numbers, list):
+        raise TypeError("Input must be a list")
+    if not all(isinstance(x, (int, float)) for x in numbers):
+        raise ValueError("List must only contain numbers")
+    if not numbers:
+        raise ValueError("List cannot be empty")
+    return float(sum(numbers))
