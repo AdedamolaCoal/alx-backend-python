@@ -14,8 +14,8 @@ def make_multiplier(multiplier: float) -> Callable[[float], float]:
       Callable[[float], float]: returns a function that multiplies a float by a multiplier.
     """
 
-    def multiply(n: float) -> float:
+    def inner(n: float) -> float:
         """The inner multiplier"""
         return float(n * multiplier)
 
-    return multiply
+    return inner
