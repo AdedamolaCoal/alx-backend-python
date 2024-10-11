@@ -9,7 +9,7 @@ def add(a: float, b: float) -> float:
     """_summary_
 
     Args:
-        a (float): takes an arguument that is a float
+        a (float): takes an argument that is a float
         b (float): also takes a float argument
 
     Returns:
