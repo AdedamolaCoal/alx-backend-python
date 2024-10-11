@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
-"""Checks if the list is empty"""
+"""Returns the first element in a sequence, otherwise None"""
 
-from typing import Sequence, Any, Union, Optional
+from typing import Sequence, Any, Union
 
 
 def safe_first_element(lst: Sequence[Any]) -> Union[Any, None]:
     """_summary_
 
     Args:
-        lst (Sequence[Any]): checks the first element of a list
+        lst (Sequence[Any]): A sequence of elements of type any
 
     Returns:
-        Optional[Any]: returns the first element of a list if present and None otherwise
+        Union[Any, None]: The first element if available, otherwise None.
     """
     if lst:
         return lst[0]
