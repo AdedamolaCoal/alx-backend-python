@@ -1,25 +1,16 @@
 #!/usr/bin/env python3
+"""Sums a list of mixed ints and floats."""
+
 from typing import List, Union
 
 
-def sum_numbers_in_list(numbers: List[Union[int, float]]) -> float:
-    """
-    Returns the sum of all numbers in the input list.
+def sum_mixed_list(mxd_list: List[Union[int, float]]) -> float:
+    """Returns the sum of all numbers in the input list.
 
     Args:
-        numbers: A list of integers and/or floats.
+      mxd_list: takes an argument that is a list of both ints and floats
 
     Returns:
-        The sum of all numbers in the list as a float.
-
-    Raises:
-        TypeError: If the input is not a list.
-        ValueError: If the list contains non-numeric values.
+      float: returns a float with the sum of all floats and ints in the list mxd_list.
     """
-    if not isinstance(numbers, list):
-        raise TypeError("Input must be a list")
-    if not all(isinstance(x, (int, float)) for x in numbers):
-        raise ValueError("List must only contain numbers")
-    if not numbers:
-        raise ValueError("List cannot be empty")
-    return float(sum(numbers))
+    return float(sum(mxd_list))
