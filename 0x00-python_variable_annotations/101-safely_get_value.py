@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Returns the key value from a mapping if available, otherwise the default value"""
 
+from types import NoneType
 from typing import TypeVar, Mapping, Any, Union
 
 T = TypeVar("T")
 
 
 def safely_get_value(
-    dct: Mapping[Any, Any], key: Any, default: Union[T, None] = None
+    dct: Mapping[Any, Any], key: Any, default: Union[T, NoneType]
 ) -> Union[Any, T]:
     """
     Safely retrieve a value from a mapping.
