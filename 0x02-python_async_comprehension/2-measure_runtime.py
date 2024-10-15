@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+"""Returns the measure runtime of async_comprehension"""
 import time
 import asyncio
 
