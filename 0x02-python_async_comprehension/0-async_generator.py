@@ -4,6 +4,7 @@ between 0 and 10 using an async generator.
 """
 import asyncio
 import random
+from typing import Generator
 
 
 async def async_generator():
