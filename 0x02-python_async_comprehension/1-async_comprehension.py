@@ -12,5 +12,5 @@ async def async_comprehension():
 
     Returns: A list of 10 random numbers
     """
-    value = [_ async for _ in async_generator()]
+    value = [i async for i in async_generator()]
     return value
