@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
+"""Returns the list of all 3 running concurrent coroutines."""
 
 import asyncio
 from typing import List
+from importlib import import_module as using
 
-wait_random = __import__("0-basic_async_syntax").wait_random
+wait_random = using("0-basic_async_syntax").wait_random
 
 
 async def wait_n(n: int, max_delay: int) -> List[float]:
