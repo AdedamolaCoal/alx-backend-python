@@ -116,12 +116,40 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
             return repos_payload
         return {}
 
-    # Here you would add test methods that utilize the fixtures and test `public_repos`
-    # For example:
+    # def test_public_repos(self):
+    #     """Test public_repos to ensure it returns expected repositories."""
+    #     client = GithubOrgClient("test-org")
+    #     self.assertEqual(client.public_repos(), self.expected_repos)
+
+    @classmethod
+    def _mock_get(cls, url):
+        if url == "https://api.github.com/orgs/google":
+            return cls._mock_response(cls.org_payload)
+        elif url == "https://api.github.com/orgs/google/repos":
+            return cls._mock_response(cls.repos_payload)
+        return cls._mock_response({})  # Return an empty response for unexpected URLs
+
+    @staticmethod
+    def _mock_response(data):
+        """Create a mock response object."""
+
+        class MockResponse:
+            def json(self):
+                return data
+
+        return MockResponse()
+
     def test_public_repos(self):
-        """Test public_repos to ensure it returns expected repositories."""
-        client = GithubOrgClient("test-org")
-        self.assertEqual(client.public_repos(), self.expected_repos)
+        """Test the public_repos method."""
+        client = GithubOrgClient("google")
+        repos = client.public_repos()
+        self.assertEqual(repos, self.expected_repos)
+
+    def test_public_repos_with_license(self):
+        """Test public_repos method with license argument."""
+        client = GithubOrgClient("google")
+        repos = client.public_repos(license="apache-2.0")
+        self.assertEqual(repos, self.apache2_repos)
 
 
 if __name__ == "__main__":
