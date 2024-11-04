@@ -116,13 +116,9 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
             return repos_payload
         return {}
 
-    # def test_public_repos(self):
-    #     """Test public_repos to ensure it returns expected repositories."""
-    #     client = GithubOrgClient("test-org")
-    #     self.assertEqual(client.public_repos(), self.expected_repos)
-
     @classmethod
     def _mock_get(cls, url):
+        """Mocks the get method of requests module."""
         if url == "https://api.github.com/orgs/google":
             return cls._mock_response(cls.org_payload)
         elif url == "https://api.github.com/orgs/google/repos":
@@ -134,6 +130,8 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         """Create a mock response object."""
 
         class MockResponse:
+            """Mock response class."""
+
             def json(self):
                 return data
 
