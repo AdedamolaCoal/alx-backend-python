@@ -5,8 +5,9 @@ Unit test module for client.GithubOrgClient class.
 
 import unittest
 from unittest.mock import patch, PropertyMock
-from parameterized import parameterized
+from parameterized import parameterized, parameterized_class
 from client import GithubOrgClient
+from fixtures import org_payload, repos_payload, expected_repos, apache2_repos
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -76,6 +77,51 @@ class TestGithubOrgClient(unittest.TestCase):
         """Test that has_license returns the correct boolean based on the license key."""
         client = GithubOrgClient("test-org")
         self.assertEqual(client.has_license(repo, license_key), expected)
+
+
+@parameterized_class(
+    [
+        {
+            "org_payload": org_payload,
+            "repos_payload": repos_payload,
+            "expected_repos": expected_repos,
+            "apache2_repos": apache2_repos,
+        },
+    ]
+)
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """Integration tests for GithubOrgClient.public_repos."""
+
+    @classmethod
+    def setUpClass(cls):
+        """Set up the class with a patched requests.get to simulate external API calls."""
+        # Start patching requests.get
+        cls.get_patcher = patch("requests.get")
+        cls.mock_get = cls.get_patcher.start()
+
+        # Define side effects for different URLs to return appropriate fixture data
+        cls.mock_get.side_effect = cls.get_json_side_effect
+
+    @classmethod
+    def tearDownClass(cls):
+        """Tear down the class by stopping the patcher."""
+        cls.get_patcher.stop()
+
+    @staticmethod
+    def get_json_side_effect(url):
+        """Side effect function to return different data based on the requested URL."""
+        if url == "https://api.github.com/orgs/test-org":
+            return org_payload
+        elif url == "https://api.github.com/orgs/test-org/repos":
+            return repos_payload
+        return {}
+
+    # Here you would add test methods that utilize the fixtures and test `public_repos`
+    # For example:
+    def test_public_repos(self):
+        """Test public_repos to ensure it returns expected repositories."""
+        client = GithubOrgClient("test-org")
+        self.assertEqual(client.public_repos(), self.expected_repos)
 
 
 if __name__ == "__main__":
