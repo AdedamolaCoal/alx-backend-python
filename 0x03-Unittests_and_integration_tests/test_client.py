@@ -45,7 +45,9 @@ class TestGithubOrgClient(unittest.TestCase):
 
     @patch("client.get_json")
     def test_public_repos(self, mock_get_json):
-        """Test that public_repos returns the correct list of repos."""
+        """Test that public_repos returns
+        the correct list of repos.
+        """
         mock_repos_payload = [{"name": "repo1"}, {"name": "repo2"}, {"name": "repo3"}]
         mock_get_json.return_value = mock_repos_payload
 
@@ -70,11 +72,13 @@ class TestGithubOrgClient(unittest.TestCase):
         [
             ({"license": {"key": "my_license"}}, "my_license", True),
             ({"license": {"key": "other_license"}}, "my_license", False),
-            ({"license": None}, "my_license", False),  # Edge case: No license info
+            ({"license": None}, "my_license", False),
         ]
     )
     def test_has_license(self, repo, license_key, expected):
-        """Test that has_license returns the correct boolean based on the license key."""
+        """Test that has_license returns
+        the correct boolean based on the license key.
+        """
         client = GithubOrgClient("test-org")
         self.assertEqual(client.has_license(repo, license_key), expected)
 
@@ -94,12 +98,15 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        """Set up the class with a patched requests.get to simulate external API calls."""
+        """Set up the class with a patched requests.
+        get to simulate external API calls.
+        """
         # Start patching requests.get
         cls.get_patcher = patch("requests.get")
         cls.mock_get = cls.get_patcher.start()
 
-        # Define side effects for different URLs to return appropriate fixture data
+        # Define side effects for different URLs to return
+        # appropriate fixture data
         cls.mock_get.side_effect = cls.get_json_side_effect
 
     @classmethod
@@ -109,7 +116,9 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
 
     @staticmethod
     def get_json_side_effect(url):
-        """Side effect function to return different data based on the requested URL."""
+        """Side effect function to return different data
+        based on the requested URL.
+        """
         if url == "https://api.github.com/orgs/test-org":
             return org_payload
         elif url == "https://api.github.com/orgs/test-org/repos":
@@ -123,7 +132,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
             return cls._mock_response(cls.org_payload)
         elif url == "https://api.github.com/orgs/google/repos":
             return cls._mock_response(cls.repos_payload)
-        return cls._mock_response({})  # Return an empty response for unexpected URLs
+        return cls._mock_response({})
 
     @staticmethod
     def _mock_response(data):
